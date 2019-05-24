@@ -99,11 +99,13 @@ func validateBlock(evidencePool EvidencePool, stateDB dbm.DB, state State, block
 				len(block.LastCommit.Precommits),
 			)
 		}
+		/* don't need to verify in replay
 		err := state.LastValidators.VerifyCommit(
 			state.ChainID, state.LastBlockID, block.Height-1, block.LastCommit)
 		if err != nil {
 			return err
 		}
+		*/
 	}
 
 	// Validate block Time
