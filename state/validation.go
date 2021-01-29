@@ -50,13 +50,16 @@ func validateBlock(state State, block *types.Block) error {
 		)
 	}
 
-	// Validate app info
-	if !bytes.Equal(block.AppHash, state.AppHash) {
-		return fmt.Errorf("wrong Block.Header.AppHash.  Expected %X, got %v",
-			state.AppHash,
-			block.AppHash,
-		)
-	}
+	/*
+		// Validate app info
+		if !bytes.Equal(block.AppHash, state.AppHash) {
+			return fmt.Errorf("wrong Block.Header.AppHash.  Expected %X, got %v",
+				state.AppHash,
+				block.AppHash,
+			)
+		}
+	*/
+
 	hashCP := types.HashConsensusParams(state.ConsensusParams)
 	if !bytes.Equal(block.ConsensusHash, hashCP) {
 		return fmt.Errorf("wrong Block.Header.ConsensusHash.  Expected %X, got %v",
@@ -89,11 +92,13 @@ func validateBlock(state State, block *types.Block) error {
 			return errors.New("initial block can't have LastCommit signatures")
 		}
 	} else {
-		// LastCommit.Signatures length is checked in VerifyCommit.
-		if err := state.LastValidators.VerifyCommit(
-			state.ChainID, state.LastBlockID, block.Height-1, block.LastCommit); err != nil {
-			return err
-		}
+		/*
+			// LastCommit.Signatures length is checked in VerifyCommit.
+			if err := state.LastValidators.VerifyCommit(
+				state.ChainID, state.LastBlockID, block.Height-1, block.LastCommit); err != nil {
+				return err
+			}
+		*/
 	}
 
 	// NOTE: We can't actually verify it's the right proposer because we don't
